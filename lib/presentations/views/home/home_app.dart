@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeApp extends StatefulWidget {
   const HomeApp({Key key}) : super(key: key);
@@ -40,6 +41,41 @@ class _HomeAppState extends State<HomeApp> {
       key: _globalKey,
       appBar: AppBar(
         title: Text("MPP Pekanbaru"),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: ()async{
+                showDialog(
+                    context: context,
+                    builder: (context){
+                      return AlertDialog(
+                        content: Text("Apakah anda yakin?"),
+                        actions: [
+                          FlatButton(
+                            child: Text("Tidak"),
+                            onPressed: (){
+                              Navigator.pop(context);
+                            },
+                          ),
+                          FlatButton(
+                            child: Text("Ya"),
+                            onPressed: () async{
+                              Navigator.pop(context);
+                              EasyLoading.show(status: "Loading...", maskType: EasyLoadingMaskType.black, dismissOnTap: false);
+                              SharedPreferences preferences = await SharedPreferences.getInstance();
+                              preferences.clear();
+                              EasyLoading.dismiss();
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, 'login', (route) => false);
+                            },
+                          )
+                        ],
+                      );
+                    }
+                );
+              }
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -105,6 +141,12 @@ class _HomeAppState extends State<HomeApp> {
                   contentPadding: EdgeInsets.zero,
                   title: Text("Layanan", style: TextStyle(fontSize: 14, color: Colors.grey),),
                   subtitle: Text(detailHistoriAntrianModel.data.jenisLayanan.jlNama, style: TextStyle(fontSize: 16,color: Colors.black)),
+                ),
+                vSpace(8),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text("Loket", style: TextStyle(fontSize: 14, color: Colors.grey),),
+                  subtitle: Text(detailHistoriAntrianModel.data.jenisLayanan.jlNama+" - "+detailHistoriAntrianModel.data.antrian.antrianLoket, style: TextStyle(fontSize: 16,color: Colors.black)),
                 ),
               ],
             ),

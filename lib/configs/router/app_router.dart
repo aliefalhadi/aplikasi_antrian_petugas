@@ -10,6 +10,8 @@ import 'package:aplikasi_antrian/presentations/views/home/home.dart';
 import 'package:aplikasi_antrian/presentations/views/home/home_app.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentations/views/auth/login_view.dart';
+
 class AppRouter {
 
   Route onGenerateRoute(RouteSettings routeSettings) {
@@ -23,6 +25,9 @@ class AppRouter {
         break;
       case AppRouterStrings.ambilAntrian:
         return MaterialPageRoute(builder: (_) => AmbilAntrian());
+        break;
+      case 'login':
+        return MaterialPageRoute(builder: (_) => LoginView());
         break;
       case AppRouterStrings.cekAntrian:
         return MaterialPageRoute(builder: (_) => CekAntrian());
