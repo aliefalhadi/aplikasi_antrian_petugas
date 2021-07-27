@@ -129,7 +129,7 @@ class _HomeAppState extends State<HomeApp> {
                 vSpace(16),
                 Text("Detail Antrian", style: TextStyle(fontWeight: FontWeight.normal),),
                 vSpace(8),
-                Text(detailHistoriAntrianModel.data.antrian.antrianNo.toString(), style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                Text("No Antrian "+detailHistoriAntrianModel.data.antrian.antrianNo.toString(), style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                 vSpace(8),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
@@ -156,7 +156,10 @@ class _HomeAppState extends State<HomeApp> {
                   "OK",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onPressed: () => Navigator.pop(_globalKey.currentContext),
+                onPressed: (){
+                  Navigator.pop(_globalKey.currentContext);
+                  controller.resumeCamera();
+                },
                 width: 120,
               )
             ],
