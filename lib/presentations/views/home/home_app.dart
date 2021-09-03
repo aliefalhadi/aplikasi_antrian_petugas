@@ -7,6 +7,7 @@ import 'package:aplikasi_antrian/presentations/views/antrian/detail_histori_antr
 import 'package:aplikasi_antrian/providers/home_app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,7 +111,7 @@ class _HomeAppState extends State<HomeApp> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) async{
-      String result = scanData.code;
+      String result = scanData.code; //'29 MPP'
       print(result);
       if(result.split(' ').length == 2){
         controller.stopCamera();
@@ -133,6 +134,14 @@ class _HomeAppState extends State<HomeApp> {
                 vSpace(8),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
+                  title: Text("Nama", style: TextStyle(fontSize: 14, color: Colors.grey),),
+                  subtitle: Text(detailHistoriAntrianModel.data.antrianOnline.aoNamaLengkap, style: TextStyle(fontSize: 16,color: Colors.black)),
+                ),
+
+                vSpace(8),
+
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
                   title: Text("Instansi", style: TextStyle(fontSize: 14, color: Colors.grey),),
                   subtitle: Text(detailHistoriAntrianModel.data.instansi.namaInstansi, style: TextStyle(fontSize: 16,color: Colors.black)),
                 ),
@@ -148,6 +157,18 @@ class _HomeAppState extends State<HomeApp> {
                   title: Text("Loket", style: TextStyle(fontSize: 14, color: Colors.grey),),
                   subtitle: Text(detailHistoriAntrianModel.data.jenisLayanan.jlNama+" - "+detailHistoriAntrianModel.data.antrian.antrianLoket, style: TextStyle(fontSize: 16,color: Colors.black)),
                 ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text("Tanggal", style: TextStyle(fontSize: 14, color: Colors.grey),),
+                  subtitle: Text(DateFormat('dd MM yyyy').format(detailHistoriAntrianModel.data.antrian.antrianTgl), style: TextStyle(fontSize: 16,color: Colors.black)),
+                ),
+                vSpace(8),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text("Waktu Kunjungan", style: TextStyle(fontSize: 14, color: Colors.grey),),
+                  subtitle: Text(detailHistoriAntrianModel.data.antrianOnline.aoWaktu, style: TextStyle(fontSize: 16,color: Colors.black)),
+                ),
+                vSpace(8),
               ],
             ),
             buttons: [

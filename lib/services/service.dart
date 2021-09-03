@@ -15,8 +15,6 @@ class Service {
   Future get(String url) async {
     try {
       url = baseUrl + url;
-      print(url);
-      print('aleif');
       if (await locator<ApiInterceptors>().checkConnection()) {
         final response =
         dio.get(url, options: Options(headers: {"requiresToken": true}));
