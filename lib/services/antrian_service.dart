@@ -169,7 +169,7 @@ class AntrianService extends Service{
 
   Future getDetailHistoriAntrian({String idAntrian}) async {
     try {
-      var url = '/antrians/detail-histori-antrian/'+idAntrian;
+      var url = '/antrians/detail-histori-antrian-petugas/'+idAntrian;
 
       var response = await get(url);
 
